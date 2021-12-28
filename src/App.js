@@ -12,10 +12,10 @@ function App() {
     <BrowserRouter>
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<Website />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/activate/:token" element={<Activate />} />
+        <Route path="/*" element={<Website />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="activate/:token" element={<Activate />} />
       </Routes>
     </BrowserRouter>
   );

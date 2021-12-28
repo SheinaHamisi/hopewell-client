@@ -6,6 +6,7 @@ import Website from "./website";
 import Login from "./Routes/Login";
 import Register from "./Routes/Register";
 import { ToastContainer } from "react-toastify";
+import Activate from "./Routes/Activate";
 function App() {
   return (
     <BrowserRouter>
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Website />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/activate/:token" element={<Activate />} />
       </Routes>
     </BrowserRouter>
   );

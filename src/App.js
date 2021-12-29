@@ -14,12 +14,12 @@ function App() {
     <BrowserRouter>
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<Website />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/activate/:token" element={<Activate />} />
-        <Route path="/update-Password" element={<Update />} />
-        <Route path="/forgot-Password" element={<Forgotpassword />} />
+        <Route path="/*" element={<Website />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="activate/:token" element={<Activate />} />
+        <Route path="update-Password" element={<Update />} />
+        <Route path="forgot-Password" element={<Forgotpassword />} />
       </Routes>
     </BrowserRouter>
   );

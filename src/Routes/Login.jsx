@@ -47,7 +47,7 @@ function Login() {
           </div>
 
           <div className="mt-8 w-full">
-          <PrimaryButton text="Login in" color="primary" type="submit" />
+          <PrimaryButton text="Log in" color="primary" type="submit" />
           </div>
           <div className="mt-16" >
             <p>Don’t have an account? <Link className="text-primary hover:underline" to="/register">

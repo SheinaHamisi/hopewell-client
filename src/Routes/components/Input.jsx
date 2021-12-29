@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
-function Input({ label, type, placeholder, pass, onchange, name }) {
+function Input({ label, type, placeholder, pass, change, name, require }) {
   const [show, setShow] = useState(false);
 
   return (
@@ -12,8 +12,9 @@ function Input({ label, type, placeholder, pass, onchange, name }) {
             mt-2 w-full px-4 py-4 font-medium bg-gray-100 flex justify-between items-center"
       >
         <input
+          required={require}
           name={name}
-          onChange={(e) => onchange(e)}
+          onChange={(e) => change(e)}
           type={pass && show ? "text" : type}
           className=" placeholder-gray-500 text-sm w-full
            focus:outline-none bg-transparent "

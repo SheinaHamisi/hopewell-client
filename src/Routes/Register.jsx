@@ -49,28 +49,28 @@ function Register() {
           <div>
             <div className="grid grid-cols-1 gap-y-4 mt-4 md:grid-cols-2 md:gap-x-4 ">
               <Input
-                onchange={changeHandler}
+                change={changeHandler}
                 label="First Name"
                 type="text"
                 placeholder=" First Name"
                 name="firstName"
               />
               <Input
-                onchange={changeHandler}
+                change={changeHandler}
                 label="Last Name"
                 type="text"
                 placeholder=" Last Name"
                 name="lastName"
               />
               <Input
-                onchange={changeHandler}
+                change={changeHandler}
                 label="Email"
                 type="email"
                 placeholder=" hello@gmail.com"
                 name="email"
               />
               <Input
-                onChange={changeHandler}
+                change={changeHandler}
                 label="Phone"
                 type="text"
                 placeholder=" Phone"
@@ -81,7 +81,7 @@ function Register() {
                 type="password"
                 placeholder="Password"
                 pass={true}
-                onChange={changeHandler}
+                change={changeHandler}
                 name="password"
               />
               <Input
@@ -89,7 +89,7 @@ function Register() {
                 type="password"
                 placeholder=" Confirm Password"
                 pass={true}
-                onchange={changeHandler}
+                change={changeHandler}
                 name="confirmPassword"
               />
             </div>

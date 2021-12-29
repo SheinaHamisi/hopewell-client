@@ -7,6 +7,8 @@ import Login from "./Routes/Login";
 import Register from "./Routes/Register";
 import { ToastContainer } from "react-toastify";
 import Activate from "./Routes/Activate";
+import Update from "./Routes/Update";
+import Forgotpassword from "./Routes/Forgotpassword";
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +18,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/activate/:token" element={<Activate />} />
+        <Route path="/update-Password" element={<Update />} />
+        <Route path="/forgot-Password" element={<Forgotpassword />} />
       </Routes>
     </BrowserRouter>
   );

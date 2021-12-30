@@ -1,12 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Input from "./components/Input";
 import PrimaryButton from "./components/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../features/Slice/Auth/AuthAsync";
 
 function Login() {
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({});
+  const info = useSelector((state) => state.info);
+
+  const { loading, message, success, error } = info;
+
+  useEffect(() => {
+    if (error && !success) {
+      toast.error(error);
+    } else if (message) {
+      toast.success(message);
+    }
+  }, [info]);
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginUser(formData));
+  };
   return (
-    <form className="h-screen w-screen bg-secondary relative overflow-hidden">
+    <form
+      onSubmit={handleSubmit}
+      className="h-screen w-screen bg-secondary relative overflow-hidden"
+    >
       <img
         src="login4.jpeg"
         className="object-cover absolute inset-0  z-0 w-screen h-screen opacity-75"
@@ -35,6 +62,8 @@ function Login() {
                   type="email"
                   placeholder=" hello@gmail.com"
                   name="email"
+                  require={true}
+                  change={changeHandler}
                 />
 
                 <Input
@@ -43,13 +72,20 @@ function Login() {
                   placeholder="Password"
                   pass={true}
                   name="password"
+                  require={true}
+                  change={changeHandler}
                 />
               </div>
               <p className="mt-4">forgot password</p>
             </div>
 
             <div className="mt-8 w-full">
-              <PrimaryButton text="Log in" color="primary" type="submit" />
+              <PrimaryButton
+                text="Log in"
+                color="primary"
+                type="submit"
+                loading={loading}
+              />
             </div>
             <div className="mt-16">
               <p>

@@ -1,14 +1,16 @@
 import React from "react";
 
-function PrimaryButton({ text, color, type }) {
+function PrimaryButton({ text, color, type, loading }) {
   return (
     <button
-      className={`bg-${"primary"} transition ease-in-out duration-500 
-    hover:bg-white text-white font-semibold 
-    hover:text-primary hover:underline px-7 rounded py-3`}
+      className={`bg-${"primary"}   ${
+        loading
+          ? "cursor-not-allowed"
+          : "transition ease-in-out duration-500 hover:bg-white  font-semibold hover:text-primary hover:underline"
+      }  px-7 rounded py-3 text-white`}
       type={type}
     >
-      {text}
+      {loading ? "Loading..." : text}
     </button>
   );
 }

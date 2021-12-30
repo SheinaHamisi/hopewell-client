@@ -3,18 +3,41 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Input from "./components/Input";
 import PrimaryButton from "./components/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { createUser } from "../features/Slice/Auth/AuthAsync";
+import { useEffect } from "react";
+
 function Register() {
   const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
+  const info = useSelector((state) => state.info);
+  const { loading, message, success, error } = info;
+
+  useEffect(() => {
+    if (error && !success) {
+      toast.error(error);
+    } else if (message) {
+      toast.success(message);
+    }
+  }, [info]);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    toast.error("Please fill in all fields");
-    console.log(formData);
+
+    // check if password matches
+
+    if (formData?.password !== formData?.confirmPassword) {
+      return toast.error("Password do not match");
+    }
+    // set name
+    formData.gender = "Male";
+    formData.name = formData?.firstName + " " + formData?.lastName;
+
+    dispatch(createUser(formData));
   };
 
   return (
@@ -54,6 +77,7 @@ function Register() {
                 type="text"
                 placeholder=" First Name"
                 name="firstName"
+                require={true}
               />
               <Input
                 change={changeHandler}
@@ -61,6 +85,7 @@ function Register() {
                 type="text"
                 placeholder=" Last Name"
                 name="lastName"
+                require={true}
               />
               <Input
                 change={changeHandler}
@@ -68,6 +93,7 @@ function Register() {
                 type="email"
                 placeholder=" hello@gmail.com"
                 name="email"
+                require={true}
               />
               <Input
                 change={changeHandler}
@@ -75,6 +101,7 @@ function Register() {
                 type="text"
                 placeholder=" Phone"
                 name="phone"
+                require={true}
               />
               <Input
                 label="Password"
@@ -83,6 +110,7 @@ function Register() {
                 pass={true}
                 change={changeHandler}
                 name="password"
+                require={true}
               />
               <Input
                 label="Confirm Password"
@@ -91,6 +119,7 @@ function Register() {
                 pass={true}
                 change={changeHandler}
                 name="confirmPassword"
+                require={true}
               />
             </div>
           </div>

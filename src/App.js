@@ -1,6 +1,5 @@
 import React from "react";
 import logo from "./assets/images/logo.png";
-import { Counter } from "./features/counter/Counter";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Website from "./website";
 import Login from "./Routes/Login";

@@ -26,12 +26,30 @@ export const loginUser = createAsyncThunk(
   async (formData, thunkAPI) => {
     // clear Messages
     thunkAPI.dispatch(clearMessages());
-
     try {
       const response = await api.loginUserApi(formData);
-      console.log(response);
+
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data.results;
+    } catch (err) {
+      console.log({ err });
+      thunkAPI.dispatch(
+        setError(err.response.data ? err.response.data.message : err.message)
+      );
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const activateUser = createAsyncThunk(
+  "users/activate",
+  async (formData, thunkAPI) => {
+    // clear Messages
+    thunkAPI.dispatch(clearMessages());
+    try {
+      const { data } = await api.activateUserApi(formData);
+      thunkAPI.dispatch(setMessage(data.message));
+      return data.results;
     } catch (err) {
       console.log({ err });
       thunkAPI.dispatch(

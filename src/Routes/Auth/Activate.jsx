@@ -1,18 +1,32 @@
-import React, { useState } from "react";
-import ActivateButton from "./components/ActivateButton";
-import Illustration from "./../assets/images/illustration.png";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import ActivateButton from "./../components/ActivateButton";
+import Illustration from "./../../assets/images/illustration.png";
+import { useParams, useNavigate } from "react-router-dom";
 import decode from "jwt-decode";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { activateUser } from "../../features/Slice/Auth/AuthAsync";
 function Activate() {
+  const dispatch = useDispatch();
+  const info = useSelector((state) => state.info);
+  const navigate = useNavigate();
+  const { loading, message, success, error } = info;
   const [remain, setRemail] = useState(30);
   const { token } = useParams();
   var decoded = decode(token);
-  console.log(decoded);
-
-  
+  useEffect(() => {
+    if (error && !success) {
+      toast.error(error);
+    } else if (message) {
+      toast.success(message);
+      navigate("/login");
+    }
+  }, [info]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    dispatch(activateUser({ token: token }));
   };
   return (
     <form
@@ -32,7 +46,7 @@ function Activate() {
             You're almost there! Just one click away to activate your HopeWell
             Account.
           </p>
-          <ActivateButton text="Activate" type="submit" />
+          <ActivateButton text="Activate" type="submit" loading={loading} />
         </div>
       </div>
     </form>

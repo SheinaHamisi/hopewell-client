@@ -1,28 +1,28 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import Input from "./components/Input";
-import PrimaryButton from "./components/Button";
+import Input from "../components/Input";
+import PrimaryButton from "../components/Button";
 
 function Update() {
   return (
-    <form className="h-screen w-screen relative overflow-hidden bg-gray-200">
-      <section className=" absolute top-5 right-6 bottom-6 left-0 grid grid-cols-2 bg-gray-200  overflow-hidden">
+    <form className="h-screen w-screen relative overflow-hidden bg-gray-200 ">
+      <section className=" absolute top-6 right-6 bottom-6 left-6 grid grid-cols-1  bg-gray-200 lg:grid-cols-2 xl:grid-cols-2 overflow-hidden">
         <img
           src="update.svg"
-          className=" object-cover w-full h-full hidden xl:block "
+          className=" object-cover w-full h-full hidden lg:block xl:block "
           alt=""
         />
-        <div className=" bg-white shadow-lg w-full h-full px-32 py-2 overflow-x-scroll flex flex-col justify-center items-center">
+        <div className=" bg-white shadow-lg w-full h-full px-6 md:px-10 xl:px-24  overflow-x-hidden flex flex-col justify-center items-center">
           <div>
-            <h2 className="text-3xl xl:text-4xl text-gray-800 font-md tracking-wide text-center">
+            <h2 className="text-2xl md:text-4xl xl:text-4xl text-gray-900 font-md tracking-wide">
               Hey Sheina, want to change your password?
             </h2>
-            <p className="mt-4 text-gray-600 text-md">
+            <p className="mt-7 md:mt-12 text-gray-600 text-xl">
               Enter your new password below
             </p>
 
-            <div className="grid grid-cols-1 w-full py-12 space-y-3">
+            <div className="grid grid-cols-1 w-full space-y-5">
               <Input
                 label="Password"
                 type="password"
@@ -43,7 +43,7 @@ function Update() {
               <PrimaryButton text="Submit" color="primary" type="submit" />
             </div>
           </div>
-          <div className=" w-full mt-3">
+          <div className=" w-full mt-8">
             <p className="mt-4 text-l  text-gray-700">
               <Link className="text-primary hover:underline" to="/login">
                 Log in

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import Input from "./components/Input";
-import PrimaryButton from "./components/Button";
+import Input from "./../components/Input";
+import PrimaryButton from "./../components/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../features/Slice/Auth/AuthAsync";
+import { loginUser } from "./../../features/Slice/Auth/AuthAsync";
 
 function Login() {
   const dispatch = useDispatch();

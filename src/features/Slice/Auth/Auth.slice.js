@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createUser, loginUser } from "./AuthAsync";
+import { loginUser, createUser } from "./AuthAsync";
 
 const initialState = {
   user: localStorage.getItem("user")
@@ -18,6 +18,7 @@ let userSlice = createSlice({
   },
   extraReducers: {
     [loginUser.pending]: (state, action) => {
+      localStorage.clear();
       state.user = null;
     },
     [loginUser.fulfilled]: (state, action) => {
@@ -33,6 +34,18 @@ let userSlice = createSlice({
       state.user = action.payload;
     },
     [loginUser.rejected]: (state, action) => {
+      localStorage.clear();
+      state.user = null;
+    },
+
+    // on register
+
+    [createUser.pending]: (state, action) => {
+      localStorage.clear();
+      state.user = null;
+    },
+    [createUser.rejected]: (state, action) => {
+      localStorage.clear();
       state.user = null;
     },
   },

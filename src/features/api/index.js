@@ -47,3 +47,4 @@ API.interceptors.request.use(async (req) => {
 
 export const createUserApi = (data) => API.post("/auth/register", data);
 export const loginUserApi = (data) => API.post("/auth/login", data);
+export const activateUserApi = (data) => API.post("/auth/activate", data);

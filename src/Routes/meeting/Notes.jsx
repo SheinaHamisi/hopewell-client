@@ -4,12 +4,12 @@ import Quill from "quill";
 import { useState } from "react";
 import { useEffect } from "react";
 import { socket } from "../../features/socket/socket.routes";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function Notes() {
   const { notesOpen } = useSelector((state) => state.meeting);
   const [quill, setQuill] = useState();
-  const { meetingID } = useSearchParams();
+  const { meetingID } = useParams();
   const wrapperRef = useCallback((wrapper) => {
     if (wrapper == null) return;
     wrapper.innerHTML = "";
@@ -44,6 +44,48 @@ function Notes() {
       quill.off("text-change", handler);
     };
   }, [socket, quill]);
+
+  useEffect(() => {
+    if (socket == null || quill == null || !meetingID) return;
+
+    const interval = setInterval(() => {
+      const data = {
+        delta: quill.getContents(),
+        docID: meetingID,
+      };
+
+      socket.emit("save-document", data);
+
+      return () => {
+        clearInterval(interval);
+      };
+    }, 5000);
+  }, [quill, socket]);
+
+  // receiving from server
+  useEffect(() => {
+    if (socket == null || quill == null || !meetingID) return;
+    const handler = (data) => {
+      quill.updateContents(data.delta);
+    };
+    socket.on("receive-changes", handler);
+
+    return () => {
+      socket.off("receive-changes", handler);
+    };
+  }, [quill, socket]);
+
+  // getting data from db on room
+  useEffect(() => {
+    if (socket == null || quill == null || !meetingID) return;
+
+    socket.once("load-document", (doc) => {
+      quill.setContents(doc);
+      quill.enable();
+    });
+
+    socket.emit("get-documet", meetingID);
+  }, [quill, socket, meetingID]);
 
   return (
     <div

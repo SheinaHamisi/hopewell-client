@@ -9,16 +9,34 @@ import {
   MinusCircleIcon,
 } from "@heroicons/react/solid";
 import { useParams } from "react-router-dom";
-import { sendMessage } from "../../features/socket/socket.routes";
-
+import {
+  getAllMessages,
+  sendMessage,
+} from "../../features/socket/socket.routes";
+import { toast } from "react-toastify";
 function Info() {
   const scrollToRef = useRef();
   const { meetingID } = useParams();
-  const { infoShow, messages } = useSelector((state) => state.meeting);
+  const { infoShow, messages, online_members, latest } = useSelector(
+    (state) => state.meeting
+  );
   const { user } = useSelector((state) => state.users);
   const [messageUser, setMessageUser] = useState(true);
   const [test, setText] = useState("");
   const dispatch = useDispatch();
+
+  // notify new message
+
+  useEffect(() => {
+    if (latest.sender === user._id) return;
+    toast.info(`New message from ${latest.name}`);
+  }, [latest]);
+
+  // collect messages
+  useEffect(() => {
+    getAllMessages({ meetingID });
+  }, []);
+
   useEffect(() => {
     if (scrollToRef.current) {
       scrollToRef.current.scrollIntoView({ behavior: "smooth" });
@@ -110,7 +128,10 @@ function Info() {
           <h1 className="text-center text-lg text-gray-900 font-semibold  ">
             Online users
           </h1>
-          <UserComponent /> <UserComponent /> <UserComponent />
+          {online_members &&
+            online_members.map((member) => (
+              <UserComponent key={member._id} {...member} />
+            ))}
         </div>
       )}
     </div>
@@ -119,11 +140,11 @@ function Info() {
 
 export default Info;
 
-const UserComponent = () => {
+const UserComponent = ({ name }) => {
   return (
     <div className="flex justify-start items-center space-x-2">
       <UserCircleIcon className="h-10 fill-current text-indigo-700" />
-      <span>Lincoln Kantet</span>
+      <span>{name}</span>
       <MicrophoneIcon className="h-4 cursor-pointer fill-current text-red-600" />
       <VideoCameraIcon className="h-4 cursor-pointer" />
       <MinusCircleIcon className="h-4 cursor-pointer fill-current text-red-600" />

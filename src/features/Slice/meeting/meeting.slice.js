@@ -7,7 +7,9 @@ export const initialState = {
   endCall: false,
   shareScreen: true,
   notesOpen: true,
-  messages: [{ name: "kaka", message: "niko", sender: "8" }],
+  messages: [],
+  online_members: [],
+  latest: {},
 };
 
 const meeingSlice = createSlice({
@@ -34,9 +36,16 @@ const meeingSlice = createSlice({
       state.notesOpen = action.payload;
     },
     addMessage(state, action) {
-      let messages = state.messages;
+      let messages = state.messages ? state.messages : [];
       messages.push(action.payload);
       state.messages = messages;
+      state.latest = action.payload;
+    },
+    setMessages(state, action) {
+      state.messages = action.payload;
+    },
+    addMembers(state, action) {
+      state.online_members = action.payload;
     },
   },
 });
@@ -50,4 +59,6 @@ export const {
   videoTogle,
   infoTogle,
   addMessage,
+  setMessages,
+  addMembers,
 } = meeingSlice.actions;

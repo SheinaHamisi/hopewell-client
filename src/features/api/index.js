@@ -1,7 +1,7 @@
 import axios from "axios";
 import decode from "jwt-decode";
 
-const Server_URL = "http://localhost:5000"; // "https://hopewell-firm.herokuapp.com";
+export const Server_URL = "http://localhost:5000"; // "https://hopewell-firm.herokuapp.com";
 const API_URL = `${Server_URL}/api`;
 
 export const API = axios.create({
@@ -9,16 +9,16 @@ export const API = axios.create({
 });
 // TOKENS
 
-let newAccessToken = localStorage.getItem("accessToken")
+export let newAccessToken = localStorage.getItem("accessToken")
   ? JSON.parse(localStorage.getItem("accessToken"))
   : null;
-const myrefreshToken = localStorage.getItem("refreshToken")
+export const myrefreshToken = localStorage.getItem("refreshToken")
   ? JSON.parse(localStorage.getItem("refreshToken"))
   : localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))?.tokens?.refreshToken
   : null;
 
-const accessToken = localStorage.getItem("accessToken")
+export const accessToken = localStorage.getItem("accessToken")
   ? JSON.parse(localStorage.getItem("accessToken"))
   : null;
 // ==================================================================== interceptors

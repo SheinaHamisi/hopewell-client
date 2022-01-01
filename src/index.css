@@ -3,3 +3,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input[type="file"]::-webkit-file-upload-button,
+input[type="file"]::file-selector-button {
+  @apply text-white bg-primary hover:bg-blue-500 font-medium text-sm cursor-pointer border-0 py-2.5 pl-8 pr-4;
+  margin-inline-start: -1rem;
+  margin-inline-end: 1rem;
+}
+
+.ql-editor {
+  min-height: 5in;
+  padding: 1in;
+  margin: 1rem;
+  background-color: white;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.ql-container .ql-snow {
+  border: none;
+  display: flex;
+  justify-content: center;
+}
+
+.ql-toolbar .ql-snow {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  background-color: transparent;
+  border: none;
+  z-index: 1;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+}

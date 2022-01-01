@@ -6,6 +6,7 @@ import { store } from "./features/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import "react-toastify/dist/ReactToastify.css";
+import "quill/dist/quill.snow.css";
 //import "react-phone-number-input/style.css";
 ReactDOM.render(
   <React.StrictMode>

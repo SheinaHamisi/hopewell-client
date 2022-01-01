@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import Activate from "./Routes/Auth/Activate";
 import Update from "./Routes/Auth/Update";
 import Forgotpassword from "./Routes/Auth/Forgotpassword";
+import Dashboard from "./website/Dashboard/Dashboard";
 // import Index from "./Routes/Pages";
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/*" element={<Website />} />
-        {/* <Route path="Dashboard/*" element={<Index />} /> */}
+        <Route path="dashboard/*" element={<Dashboard />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="activate/:token" element={<Activate />} />

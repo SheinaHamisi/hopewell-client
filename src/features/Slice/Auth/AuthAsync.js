@@ -59,3 +59,18 @@ export const activateUser = createAsyncThunk(
     }
   }
 );
+
+export const getAccessTokens = createAsyncThunk(
+  "users/refreshToken",
+  async (formData, thunkAPI) => {
+    try {
+      const { data } = await api.getAccessTokenApi(formData);
+      console.log(data);
+      return data.acessToken;
+    } catch (err) {
+      // error log out user
+      console.log(err);
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);

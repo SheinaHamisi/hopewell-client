@@ -1,21 +1,20 @@
 import { io } from "socket.io-client";
 import { store } from "./../store";
-import {
-  accessToken,
-  myrefreshToken,
-  newAccessToken,
-  Server_URL,
-} from "../api";
+import { Server_URL } from "../api";
 import {
   addMembers,
   addMessage,
   setMessages,
 } from "../Slice/meeting/meeting.slice";
 
+// get access to tokens
+const accessToken = localStorage.getItem("user")
+  ? JSON.parse(localStorage.getItem("user"))?.tokens?.accessToken
+  : null;
+
 export let socket = io(`${Server_URL}/socket`, {
   auth: {
-    refreshToken: myrefreshToken,
-    accessToken: newAccessToken ? newAccessToken : accessToken,
+    accessToken: accessToken,
   },
 });
 export const connectWithSocketServer = () => {

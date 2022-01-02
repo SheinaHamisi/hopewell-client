@@ -26,10 +26,10 @@ function Info() {
   const dispatch = useDispatch();
 
   // notify new message
-
   useEffect(() => {
-    if (latest.sender === user._id) return;
-    toast.info(`New message from ${latest.name}`);
+    if (latest.sender === user._id || latest?.name === undefined) return;
+    if (infoShow) toast.info(`New message from ${latest.name}`);
+    return;
   }, [latest]);
 
   // collect messages
@@ -44,6 +44,7 @@ function Info() {
   }, [messages]);
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!test) return toast.error("Please type your text ");
     let data = { message: test, sender: user._id, name: user?.name, meetingID };
 
     sendMessage(data, dispatch);
@@ -103,7 +104,7 @@ function Info() {
                   </div>
                 );
               })}
-            <div ref={scrollToRef} className="text-white bg-transparent">
+            <div ref={scrollToRef} className="text-white bg-transparent py-2">
               .
             </div>
           </div>

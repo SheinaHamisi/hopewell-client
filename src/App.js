@@ -12,6 +12,8 @@ import Dashboard from "./website/Dashboard/Dashboard";
 import Meeting from "./Routes/meeting";
 
 import { connectWithSocketServer } from "./features/socket/socket.routes";
+import Authenticated from "./RouteManagers/Authenticated";
+import OnsuccessAuth from "./RouteManagers/OnsuccessAuth";
 // import Index from "./Routes/Pages";
 function App() {
   // connect to socket
@@ -19,22 +21,25 @@ function App() {
   useEffect(() => {
     connectWithSocketServer();
   }, []);
-
   return (
     <BrowserRouter>
       <ToastContainer />
       <Routes>
         <Route path="/*" element={<Website />} />
-        <Route path="dashboard/*" element={<Dashboard />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="activate/:token" element={<Activate />} />
-        <Route path="update-Password" element={<Update />} />
-        <Route path="forgot-Password" element={<Forgotpassword />} />
+        {/* if user has logged in dont access this pages */}
+        <Route element={<OnsuccessAuth />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="activate/:token" element={<Activate />} />
+          <Route path="update-Password" element={<Update />} />
+          <Route path="forgot-Password" element={<Forgotpassword />} />
+        </Route>
 
-        {/*  meeting routes */}
-
-        <Route path="meeting/:meetingID" element={<Meeting />} />
+        {/* Authenticaion needed */}
+        <Route element={<Authenticated />}>
+          <Route path="dashboard/*" element={<Dashboard />} />
+          <Route path="meeting/:meetingID" element={<Meeting />} />{" "}
+        </Route>
       </Routes>
     </BrowserRouter>
   );

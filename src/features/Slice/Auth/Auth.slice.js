@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, createUser } from "./AuthAsync";
+import { loginUser, createUser, getAccessTokens } from "./AuthAsync";
 
 const initialState = {
   user: localStorage.getItem("user")
@@ -11,11 +11,12 @@ let userSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    updateToken: (state, action) => {
-      state.user.tokens.accessToken = action.payload;
-      state.updated = true;
+    clearUserInfo(state) {
+      localStorage.clear();
+      state.user = null;
     },
   },
+
   extraReducers: {
     [loginUser.pending]: (state, action) => {
       localStorage.clear();
@@ -23,14 +24,6 @@ let userSlice = createSlice({
     },
     [loginUser.fulfilled]: (state, action) => {
       localStorage.setItem("user", JSON.stringify(action.payload));
-      localStorage.setItem(
-        "refreshToken",
-        JSON.stringify(action?.payload?.tokens?.refreshToken)
-      );
-      localStorage.setItem(
-        "accessToken",
-        JSON.stringify(action?.payload?.tokens?.accessToken)
-      );
       state.user = action.payload;
     },
     [loginUser.rejected]: (state, action) => {
@@ -48,9 +41,22 @@ let userSlice = createSlice({
       localStorage.clear();
       state.user = null;
     },
+
+    [getAccessTokens.pending]: (state, action) => {},
+    [getAccessTokens.fulfilled]: (state, action) => {
+      let userInfo = state.user;
+      let acessToken = action.payload;
+      userInfo.tokens.accessToken = acessToken;
+      localStorage.setItem("user", JSON.stringify(userInfo));
+      state.user = userInfo;
+    },
+    [getAccessTokens.rejected]: (state, action) => {
+      localStorage.clear();
+      state.user = null;
+    },
   },
 });
 
 export default userSlice.reducer;
 
-export const { updateToken } = userSlice.actions;
+export const { clearUserInfo } = userSlice.actions;

@@ -5,7 +5,7 @@ import { MicrophoneIcon, VolumeOffIcon } from "@heroicons/react/solid";
 function Paticipant(props) {
   let socketID = props.socketID;
   const ref = useRef();
-  const { endCall, online_members } = useSelector((state) => state.meeting);
+  const { online_members } = useSelector((state) => state.meeting);
 
   let theUser = online_members.find((u) => u.socketID === socketID);
   useEffect(() => {
@@ -13,10 +13,6 @@ function Paticipant(props) {
       ref.current.srcObject = stream;
     });
   }, []);
-  useEffect(() => {
-    if (endCall === false) return;
-    props.peer.destroy();
-  }, [endCall]);
 
   return (
     <div

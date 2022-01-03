@@ -4,14 +4,17 @@ import PaticipantVideo, { MyVideo } from "./Paticipant";
 import Peer from "simple-peer";
 import { authSocket, joinRoom } from "../../features/socket/socket.routes";
 import { useParams } from "react-router-dom";
+import { endMyMeeting } from "../../features/socket/socket.routes";
+import { useNavigate } from "react-router";
 let localStream;
 function Paticipants() {
+  const history = useNavigate();
   const dispatch = useDispatch();
   const [allPeers, setPeers] = useState([]);
 
   const socketRef = useRef();
   const peerRef = useRef([]);
-  const mvideo = useRef();
+  const mvideo = useRef(null);
   const { meetingID } = useParams();
 
   const { video, audio, endCall } = useSelector((state) => state.meeting);
@@ -124,6 +127,14 @@ function Paticipants() {
   let gridsize = size === 1 ? 1 : size <= 4 ? 2 : 5;
   let McolSize = size <= 4 ? 1 : 2;
   let MrowSize = size <= 4 ? size : Math.ceil(size / 2);
+
+  useEffect(() => {
+    // ending a call
+    if (!endCall || !mvideo) return;
+    endMyMeeting(meetingID);
+    history("/CallEnded");
+    return window.location.reload();
+  }, [endCall]);
 
   return (
     <div

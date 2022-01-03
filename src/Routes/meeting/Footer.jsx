@@ -27,11 +27,11 @@ function Footer() {
   const { infoShow, video, audio, endCall, shareScreen, notesOpen } =
     useSelector((state) => state.meeting);
 
-  useEffect(() => {
-    // ending a call
-    if (!endCall) return;
-    return endMyMeeting(meetingID);
-  }, [endCall]);
+  // useEffect(() => {
+  //   // ending a call
+  //   if (!endCall) return;
+  //   return endMyMeeting(meetingID);
+  // }, [endCall]);
 
   return (
     <div

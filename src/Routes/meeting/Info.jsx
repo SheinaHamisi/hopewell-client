@@ -88,7 +88,7 @@ function Info() {
                   <div key={i}>
                     {sender === user._id ? (
                       <div className="relative ml-10 mr-2 shadow-lg">
-                        <div className=" bg-gray-700 rounded-t-2xl text-sm rounded-bl-2xl px-2 py-3 text-indigo-50  ">
+                        <div className=" bg-gray-700 rounded-2xl text-sm px-2 py-3 text-indigo-50  ">
                           {message}
                         </div>
                         <span className="absolute -bottom-4 right-2 text-indigo-700  text-xs font-bold">
@@ -100,7 +100,7 @@ function Info() {
                       </div>
                     ) : (
                       <div className="relative mr-10 shadow-lg">
-                        <div className=" bg-indigo-700 rounded-t-2xl text-sm rounded-br-2xl px-2 py-2 text-indigo-50 ">
+                        <div className=" bg-indigo-700 rounded-2xl text-sm  px-2 py-2 text-indigo-50 ">
                           {message}
                         </div>
                         <span className="absolute -bottom-4 left-2 text-xs font-bold">

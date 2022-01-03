@@ -14,6 +14,7 @@ import Authenticated from "./RouteManagers/Authenticated";
 import OnsuccessAuth from "./RouteManagers/OnsuccessAuth";
 import { connectWithSocketServer } from "./features/socket/public.socket";
 import { connectWithSocketAuthServer } from "./features/socket/socket.routes";
+import Test from "./Routes/meeting/Test";
 // import Index from "./Routes/Pages";
 function App() {
   // connect to socket
@@ -29,7 +30,7 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/*" element={<Website />} />
-
+        <Route path="Test" element={<Test />} />
         {/* if user has logged in dont access this pages */}
         <Route element={<OnsuccessAuth />}>
           <Route path="login" element={<Login />} />

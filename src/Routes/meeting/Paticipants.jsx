@@ -1,38 +1,41 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PaticipantVideo from "./Paticipant";
+import PaticipantVideo, { MyVideo } from "./Paticipant";
 import Peer from "simple-peer";
 import { authSocket, joinRoom } from "../../features/socket/socket.routes";
 import { useParams } from "react-router-dom";
-import { addMembers } from "../../features/Slice/meeting/meeting.slice";
+let localStream;
 function Paticipants() {
   const dispatch = useDispatch();
-  const [peers, setPeers] = useState([]);
+  const [allPeers, setPeers] = useState([]);
+
   const socketRef = useRef();
   const peerRef = useRef([]);
-  const userVideo = useRef();
+  const mvideo = useRef();
   const { meetingID } = useParams();
-  const { video, audio, endCall, online_members } = useSelector(
-    (state) => state.meeting
-  );
+
+  const { video, audio, endCall } = useSelector((state) => state.meeting);
   const { user } = useSelector((state) => state.users);
+  useEffect(() => {
+    if (localStream === null || localStream === undefined) return;
+    localStream.getAudioTracks()[0].enabled = audio;
+    localStream.getVideoTracks()[0].enabled = video;
+  }, [video, audio]);
 
   useEffect(() => {
     socketRef.current = authSocket;
     navigator.mediaDevices
       .getUserMedia({ video, audio })
-      .then(async (stream) => {
-        //  userVideo.current.srcObject = stream;
-        let data = {
+      .then((stream) => {
+        mvideo.current.srcObject = stream;
+        localStream = stream;
+        joinRoom({
           meetingID,
           name: user?.name,
           id: user?._id,
           email: user?.email,
-        };
-        joinRoom(data);
-
-        socketRef.current.on("new-member", (members) => {
-          // update store
+        });
+        socketRef.current.on("all users", (members) => {
           const peers = [];
           members.forEach((member) => {
             const peer = createPeer(
@@ -44,26 +47,46 @@ function Paticipants() {
               peerID: member?.socketID,
               peer,
             });
-            peers.push(peer);
+            peers.push({ peer: peer, socketID: member?.socketID });
           });
-          dispatch(addMembers(members));
+          setPeers(peers);
         });
-
-        setPeers(peers);
-
+        socketRef.current.on("user-disconnected", (data) => {
+          const { socketID } = data;
+          const videoContainer = document.getElementById(socketID);
+          const video = document.getElementById(`${socketID}-video`);
+          const item = peerRef.current.find((p) => p.peerID === socketID);
+          let all = allPeers;
+          all.filter(({ peer, socketID }) => socketID !== data.socketID);
+          setPeers(all);
+          if (
+            item &&
+            video &&
+            videoContainer &&
+            socketRef.current.id !== socketID
+          ) {
+            const tracks = video.srcObject.getTracks();
+            tracks.forEach((t) => t.stop());
+            videoContainer.classList.add("hidden");
+            item.peer.destroy();
+          }
+        });
         socketRef.current.on("user-joined", (data) => {
+          // if not me
           const peer = addtoPeer(data.signal, data.callerID, stream);
-
-          peerRef.current.push({
-            peerID: data.callerID,
-            peer,
-          });
-          setPeers((users) => [...users, peer]);
+          if (data.callerID !== socketRef.current.id) {
+            peerRef.current.push({
+              peerID: data.callerID,
+              peer,
+            });
+            setPeers((users) => [
+              ...users,
+              { peer: peer, socketID: data.callerID },
+            ]);
+          }
         });
-
         socketRef.current.on("receiving-returned-signal", (payload) => {
           const item = peerRef.current.find((p) => p.peerID === payload.id);
-
           item.peer.signal(payload.signal);
         });
       })
@@ -97,19 +120,21 @@ function Paticipants() {
     peer.signal(incomingSignal);
     return peer;
   }
-  const size = peers.length;
+  const size = allPeers.length;
   let gridsize = size === 1 ? 1 : size <= 4 ? 2 : 5;
   let McolSize = size <= 4 ? 1 : 2;
   let MrowSize = size <= 4 ? size : Math.ceil(size / 2);
 
   return (
     <div
-      className={`w-full h-full grid grid-rows-${MrowSize}  grid-cols-${McolSize} lg:grid-rows-auto  gap-2 lg:grid-cols-${gridsize} p-1 overflow-y-scroll `}
+      className={`w-full h-full relative grid grid-rows-${MrowSize} relative  grid-cols-${McolSize} md:grid-rows-auto  gap-2 md:grid-cols-${gridsize} p-1 overflow-y-scroll `}
     >
-      {peers.map((peer, index) => {
-        console.log(peer);
-        return <PaticipantVideo key={index} peer={peer} />;
+      {allPeers.map(({ peer, socketID }) => {
+        return (
+          <PaticipantVideo key={socketID} socketID={socketID} peer={peer} />
+        );
       })}
+      <MyVideo mvideo={mvideo} allPeers={allPeers.length} />
     </div>
   );
 }

@@ -23,10 +23,10 @@ export const connectWithSocketAuthServer = () => {
   // initiate connection
   authSocket.on("connect", () => {
     // new member has joined
-    // authSocket.on("new-member", (data) => {
-    //   // update store
-    //   store.dispatch(addMembers(data));
-    // });
+    authSocket.on("new-member", (data) => {
+      // update store
+      store.dispatch(addMembers(data));
+    });
 
     // new message
     authSocket.on("new-message", (data) => {

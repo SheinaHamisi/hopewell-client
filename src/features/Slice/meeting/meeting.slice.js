@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const initialState = {
   infoShow: true,
   video: true,
-  audio: false,
+  audio: true,
   endCall: false,
   shareScreen: true,
   notesOpen: true,

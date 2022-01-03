@@ -1,6 +1,7 @@
 import { io } from "socket.io-client";
 import { store } from "./../store";
 import { Server_URL } from "../api";
+import * as WERTC from "./../webRtc";
 import {
   addMembers,
   addMessage,
@@ -22,10 +23,10 @@ export const connectWithSocketAuthServer = () => {
   // initiate connection
   authSocket.on("connect", () => {
     // new member has joined
-    authSocket.on("new-member", (data) => {
-      // update store
-      store.dispatch(addMembers(data));
-    });
+    // authSocket.on("new-member", (data) => {
+    //   // update store
+    //   store.dispatch(addMembers(data));
+    // });
 
     // new message
     authSocket.on("new-message", (data) => {
@@ -36,6 +37,8 @@ export const connectWithSocketAuthServer = () => {
       console.log(data);
       store.dispatch(setMessages(data));
     });
+
+    
   });
 };
 

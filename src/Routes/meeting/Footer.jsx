@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   MicrophoneIcon,
   VolumeOffIcon,
@@ -20,9 +20,19 @@ import {
   videoTogle,
   infoTogle,
 } from "../../features/Slice/meeting/meeting.slice";
+import { endMyMeeting } from "../../features/socket/socket.routes";
+import { useParams } from "react-router-dom";
 function Footer() {
+  const { meetingID } = useParams();
   const { infoShow, video, audio, endCall, shareScreen, notesOpen } =
     useSelector((state) => state.meeting);
+
+  useEffect(() => {
+    // ending a call
+    if (!endCall) return;
+    return endMyMeeting(meetingID);
+  }, [endCall]);
+
   return (
     <div
       className="shadow-lg flex justify-between h-full items-center px-2 md:px-5 lg:px-8 xl:px-10  bg-black 

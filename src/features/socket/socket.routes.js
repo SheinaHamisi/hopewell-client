@@ -6,32 +6,33 @@ import {
   addMessage,
   setMessages,
 } from "../Slice/meeting/meeting.slice";
+import { clearUserInfo } from "../Slice/Auth/Auth.slice";
 
 // get access to tokens
 const accessToken = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))?.tokens?.accessToken
   : null;
 
-export let socket = io(`${Server_URL}/socket`, {
+export const authSocket = io(`${Server_URL}/socket`, {
   auth: {
     accessToken: accessToken,
   },
 });
-export const connectWithSocketServer = () => {
+export const connectWithSocketAuthServer = () => {
   // initiate connection
-  socket.on("connect", () => {
+  authSocket.on("connect", () => {
     // new member has joined
-    socket.on("new-member", (data) => {
+    authSocket.on("new-member", (data) => {
       // update store
       store.dispatch(addMembers(data));
     });
 
     // new message
-    socket.on("new-message", (data) => {
+    authSocket.on("new-message", (data) => {
       store.dispatch(addMessage(data));
     });
     // get message
-    socket.on("All-messages", (data) => {
+    authSocket.on("All-messages", (data) => {
       console.log(data);
       store.dispatch(setMessages(data));
     });
@@ -40,11 +41,11 @@ export const connectWithSocketServer = () => {
 
 // join room same with meeting id
 export const joinRoom = (data) => {
-  socket.emit("join_room", data);
+  authSocket.emit("join_room", data);
 };
 // get messages
 export const getAllMessages = (data) => {
-  socket.emit("get-messages", data);
+  authSocket.emit("get-messages", data);
 };
 // notes socket routes
 
@@ -52,6 +53,22 @@ export const getAllMessages = (data) => {
 
 //================================================================ send message
 export const sendMessage = (data, dispatch) => {
-  socket.emit("send-message", data);
+  authSocket.emit("send-message", data);
   dispatch(addMessage(data));
+};
+
+//===============================
+
+authSocket.on("connect_error", (err) =>
+  // if error
+  {
+    // store.dispatch(clearUserInfo());
+    console.log({ err });
+  }
+);
+// socket.on("connect_failed", (err) => console.log(err));
+// socket.on("disconnect", (err) => console.log(err));
+
+export const endMyMeeting = () => {
+  authSocket.disconnect();
 };

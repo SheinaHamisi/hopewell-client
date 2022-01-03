@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Quill from "quill";
 import { useState } from "react";
 import { useEffect } from "react";
-import { socket } from "../../features/socket/socket.routes";
+import { authSocket as socket } from "../../features/socket/socket.routes";
 import { useParams } from "react-router-dom";
 
 function Notes() {

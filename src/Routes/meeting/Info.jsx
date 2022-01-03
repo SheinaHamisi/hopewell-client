@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 import {
   UsersIcon,
   ChatIcon,
@@ -45,7 +46,13 @@ function Info() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!test) return toast.error("Please type your text ");
-    let data = { message: test, sender: user._id, name: user?.name, meetingID };
+    let data = {
+      message: test,
+      sender: user._id,
+      name: user?.name,
+      meetingID,
+      date: new Date(),
+    };
 
     sendMessage(data, dispatch);
     setText("");
@@ -76,7 +83,7 @@ function Info() {
         <form onSubmit={handleSubmit} className="w-full h-5/6 relative">
           <div className="w-full overflow-y-scroll scrollbar-thin scrollbar scrollbar-thumb-primary scrollbar-track-gray-100 h-5/6 px-2 pt-4 space-y-4 bg-white">
             {messages &&
-              messages.map(({ message, sender, name }, i) => {
+              messages.map(({ message, sender, name, date }, i) => {
                 return (
                   <div key={i}>
                     {sender === user._id ? (
@@ -85,7 +92,10 @@ function Info() {
                           {message}
                         </div>
                         <span className="absolute -bottom-4 right-2 text-indigo-700  text-xs font-bold">
-                          You <span className="text-xs font-normal">10:24</span>{" "}
+                          You{" "}
+                          <span className="text-xs font-normal ml-2">
+                            {moment(date).startOf("hour").fromNow()}
+                          </span>{" "}
                         </span>
                       </div>
                     ) : (
@@ -95,8 +105,8 @@ function Info() {
                         </div>
                         <span className="absolute -bottom-4 left-2 text-xs font-bold">
                           {name.split(" ")[0]}
-                          <span className="text-xs font-normal">
-                            10:24
+                          <span className="text-xs font-normal ml-2">
+                            {moment(date).startOf("hour").fromNow()}
                           </span>{" "}
                         </span>
                       </div>

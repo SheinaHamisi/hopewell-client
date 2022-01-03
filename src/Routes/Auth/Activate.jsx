@@ -13,7 +13,7 @@ function Activate() {
   const { loading, message, success, error } = info;
   const [remain, setRemail] = useState(30);
   const { token } = useParams();
-  var decoded = decode(token);
+  const decoded = decode(token);
   useEffect(() => {
     if (error && !success) {
       toast.error(error);

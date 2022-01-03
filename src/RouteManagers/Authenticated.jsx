@@ -23,7 +23,7 @@ function Authenticated() {
       // make request for new access tokens
       const data = { refreshToken: refreshToken };
       dispatch(getAccessTokens(data));
-    }, minutesBeforeExpire);
+    }, 240000);
     // if token has expired
     if (decoded?.exp * 1000 < new Date().getTime()) {
       // if token has expired

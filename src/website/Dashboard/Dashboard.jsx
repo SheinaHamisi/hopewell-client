@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BottomNav from "../components/dashboard/BottomNav";
 import DashHeader from "../components/dashboard/DashHeader";
 import userIconImage from "../../assets/images/user-icon.png";

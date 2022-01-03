@@ -9,7 +9,7 @@ export const createUser = createAsyncThunk(
     try {
       const response = await api.createUserApi(formData);
       // set messages
-      console.log({ response });
+
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (err) {
@@ -71,6 +71,36 @@ export const getAccessTokens = createAsyncThunk(
       // error log out user
       console.log(err);
       return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const forgotPassword = createAsyncThunk(
+  "users/forgotPassword",
+  async (formData, thunkAPI) => {
+    thunkAPI.dispatch(clearMessages());
+    try {
+      const response = await api.forgotPasswordApi(formData);
+      thunkAPI.dispatch(setMessage(response.data.message));
+    } catch (err) {
+      thunkAPI.dispatch(
+        setError(err.response.data ? err.response.data.message : err.message)
+      );
+    }
+  }
+);
+
+export const updatePassword = createAsyncThunk(
+  "users/updatePassword",
+  async (formData, thunkAPI) => {
+    thunkAPI.dispatch(clearMessages());
+    try {
+      const response = await api.updatePasswordApi(formData);
+      thunkAPI.dispatch(setMessage(response.data.message));
+    } catch (err) {
+      thunkAPI.dispatch(
+        setError(err.response.data ? err.response.data.message : err.message)
+      );
     }
   }
 );

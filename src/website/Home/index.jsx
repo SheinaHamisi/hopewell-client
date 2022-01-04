@@ -5,6 +5,11 @@ function Home() {
   return (
     <div>
       <Section1 />
+
+
+
+
+
     </div>
   );
 }

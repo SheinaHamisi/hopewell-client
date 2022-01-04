@@ -31,20 +31,22 @@ function App() {
       <Routes>
         <Route path="/*" element={<Website />} />
         <Route path="CallEnded" element={<CallEnded />} />
+
         {/* if user has logged in dont access this pages */}
         <Route element={<OnsuccessAuth />}>
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="activate/:token" element={<Activate />} />
-          <Route path="update-Password/:token" element={<Update />} />
-          <Route path="forgot-Password" element={<Forgotpassword />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/activate/:token" element={<Activate />} />
+          <Route path="/update-Password/:token" element={<Update />} />
+          <Route path="/forgot-Password" element={<Forgotpassword />} />
         </Route>
-
         {/* Authenticaion needed */}
         <Route element={<Authenticated />}>
-          <Route path="dashboard/*" element={<Dashboard />} />
-          <Route path="meeting/:meetingID" element={<Meeting />} />{" "}
+          <Route path="/dashboard/*" element={<Dashboard />} />
+          <Route path="/meeting/:meetingID" element={<Meeting />} />{" "}
         </Route>
+
+        <Route path="*" element={<CallEnded />} />
       </Routes>
     </BrowserRouter>
   );

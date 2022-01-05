@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import Activate from "./Routes/Auth/Activate";
 import Update from "./Routes/Auth/Update";
 import Forgotpassword from "./Routes/Auth/Forgotpassword";
-import Dashboard from "./website/Dashboard/Dashboard";
+import Dashboard from "./Routes/home/index";
 import Meeting from "./Routes/meeting";
 import Authenticated from "./RouteManagers/Authenticated";
 import OnsuccessAuth from "./RouteManagers/OnsuccessAuth";

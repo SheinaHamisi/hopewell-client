@@ -1,17 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createUser } from "../Auth/AuthAsync";
 
 export const initialState = {
   loading: false,
   message: null,
   error: null,
   success: null,
+  showSideNav: false,
 };
 
 const infoSlice = createSlice({
   name: "info",
   initialState,
   reducers: {
+    setShowSideNav(state) {
+      state.showSideNav = !state.showSideNav;
+    },
+    setNoShow(state) {
+      state.showSideNav = false;
+    },
+
     clearMessages(state) {
       // when pending
       state.loading = true;
@@ -39,4 +46,5 @@ const infoSlice = createSlice({
 });
 
 export default infoSlice.reducer;
-export const { clearMessages, setMessage, setError } = infoSlice.actions;
+export const { clearMessages, setMessage, setError, setShowSideNav, setNoShow } =
+  infoSlice.actions;

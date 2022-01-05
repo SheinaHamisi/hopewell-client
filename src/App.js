@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import logo from "./assets/images/logo.png";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Website from "./website";
 import Login from "./Routes/Auth/Login";
@@ -13,7 +12,6 @@ import Meeting from "./Routes/meeting";
 import Authenticated from "./RouteManagers/Authenticated";
 import OnsuccessAuth from "./RouteManagers/OnsuccessAuth";
 import { connectWithSocketServer } from "./features/socket/public.socket";
-import { connectWithSocketAuthServer } from "./features/socket/socket.routes";
 import CallEnded from "./Routes/meeting/CallEnded";
 // import Index from "./Routes/Pages";
 function App() {
@@ -21,8 +19,6 @@ function App() {
 
   useEffect(() => {
     connectWithSocketServer();
-    // remember to remove
-    connectWithSocketAuthServer();
   }, []);
 
   return (

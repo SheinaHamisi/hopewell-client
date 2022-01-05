@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { PencilIcon, CalendarIcon } from "@heroicons/react/outline";
-import { MenuAlt3Icon, ChartPieIcon } from "@heroicons/react/solid";
+import { MenuAlt3Icon, ChartPieIcon, UserIcon } from "@heroicons/react/solid";
 import { setShowSideNav } from "../../../features/Slice/info/info.slice";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
@@ -17,19 +17,19 @@ function SideNav() {
       }   bg-gray-50 xl:left-0 top-0 bottom-0 z-50   duration-300 ease-in-out transition-all
      xl:w-1/5 xl:block   `}
     >
-      <div className="w-full h-full pl-4 pr-3 pt-2">
-        <div className="w-full flex  items-center ">
+      <div className="w-full h-full ">
+        <div className="w-full flex  items-center pl-4 pr-3 pt-2 ">
           <div className="w-full flex gap-x-2 px-2 pt-4  ">
-            <div className="h-4 w-4 rounded-full bg-red-500 "></div>
-            <div className="h-4 w-4 rounded-full bg-orange-500"></div>
-            <div className="h-4 w-4 rounded-full bg-green-500"></div>
+            <div className="h-4 w-4 rounded-full bg-red-500 animate-pulse "></div>
+            <div className="h-4 w-4 rounded-full bg-orange-500 animate-pulse"></div>
+            <div className="h-4 w-4 rounded-full bg-green-500 animate-pulse"></div>
           </div>
           <MenuAlt3Icon
             onClick={() => dispatch(setShowSideNav())}
-            className="h-10 cursor-pointer block  xl:hidden"
+            className="h-10 cursor-pointer block  xl:hidden  opacity-75"
           />
         </div>
-        <div className="w-full h-5/6 mt-4 ">
+        <div className="w-full h-5/6 mt-4 pl-4 pr-3 pt-2 overflow-hidden overflow-y-scroll  scrollbar-thin scrollbar scrollbar-thumb-indigo-500 scrollbar-track-indigo-50 ">
           <div>
             <SectionName name="Analytics" />
             <SideNavLink name="Dashboard" link="" Icon={ChartPieIcon} />
@@ -43,7 +43,8 @@ function SideNav() {
               link="dashboard"
               Icon={PencilIcon}
             />
-            <SectionName name="Account" />
+            <SectionName name="Settings" />
+            <SideNavLink name="Account" link="account" Icon={UserIcon} />
           </div>
         </div>
       </div>
@@ -75,8 +76,8 @@ const SideNavLink = ({ name, link, Icon }) => {
       duration-300 bg-transparent w-full items-center px-3 py-2 hover:bg-indigo-100 
        hover:text-indigo-700  cursor-pointer rounded-full`}
     >
-      <Icon className="h-5 fill-current" />
-      <span className="ml-2">{name}</span>
+      <Icon className={`h-5 fill-current  ${active && "animate-pulse"} `} />
+      <span className="ml-2 text-sm">{name}</span>
     </NavLink>
   );
 };

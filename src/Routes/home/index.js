@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideNav from "./../components/sideNav";
 import Nav from "../components/Nav";
 import Footer from "./../components/Footer";
 import Body from "./Main";
 import InfoBar from "../components/InfoSection";
-function index() {
+import { connectWithSocketAuthServer } from "../../features/socket/socket.routes";
+function Index() {
+  useEffect(() => {
+    connectWithSocketAuthServer();
+  }, []);
+
   return (
     <div className="h-screen w-screen relative  bg-gray-50 ">
       <SideNav />
@@ -15,9 +20,9 @@ function index() {
           <Footer />
         </div>
       </main>
-      {/* <InfoBar /> */}
+      <InfoBar />
     </div>
   );
 }
 
-export default index;
+export default Index;

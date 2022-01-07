@@ -56,7 +56,7 @@ export const MyVideo = ({ mvideo, allPeers }) => {
         allPeers <= 0
           ? "inset-1 rounded-lg overflow-hidden "
           : "top-2 left-2 h-32 w-32"
-      }  absolute shadow-xl`}
+      }  absolute shadow-xl   `}
     >
       <div className="bg-gray-700 flex items-center justify-center h-full overflow-hidden">
         <video

@@ -17,7 +17,7 @@ function Input({ label, type, placeholder, pass, change, name, require }) {
           onChange={(e) => change(e)}
           type={pass && show ? "text" : type}
           className=" placeholder-gray-500 text-sm w-full
-           focus:outline-none bg-transparent "
+           focus:outline-none bg-transparent focus:border-none  "
           placeholder={placeholder}
         />
         {pass && (

@@ -4,6 +4,10 @@ import { useDispatch } from "react-redux";
 import Account from "./Account";
 import Dashboard from "./dashboard";
 import { setNoShow } from "../../features/Slice/info/info.slice";
+import JoinMeeting from "./JoinMeeting";
+import Apointment from "./Appointment";
+import { USERSLIST, CREATELOCKPRICE } from "./AdminPages";
+
 function Main() {
   const dispatch = useDispatch();
   return (
@@ -13,9 +17,12 @@ function Main() {
     >
       <Routes>
         <Route path="" element={<Dashboard />} />
-      </Routes>
-      <Routes>
         <Route path="/account" element={<Account />} />
+        <Route path="/join-meeting" element={<JoinMeeting />} />
+        <Route path="/apointment" element={<Apointment />} />
+        {/*  only admin */}
+        <Route path="/User-list" element={<USERSLIST />} />
+        <Route path="/location-setup" element={<CREATELOCKPRICE />} />
       </Routes>
     </section>
   );

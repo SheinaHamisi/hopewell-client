@@ -6,17 +6,22 @@ export const initialState = {
   error: null,
   success: null,
   showSideNav: false,
+  showNotification: false,
 };
 
 const infoSlice = createSlice({
   name: "info",
   initialState,
   reducers: {
+    setShowNotification(state) {
+      state.showNotification = !state.showNotification;
+    },
     setShowSideNav(state) {
       state.showSideNav = !state.showSideNav;
     },
     setNoShow(state) {
       state.showSideNav = false;
+      state.showNotification = false;
     },
 
     clearMessages(state) {
@@ -46,5 +51,11 @@ const infoSlice = createSlice({
 });
 
 export default infoSlice.reducer;
-export const { clearMessages, setMessage, setError, setShowSideNav, setNoShow } =
-  infoSlice.actions;
+export const {
+  clearMessages,
+  setMessage,
+  setError,
+  setShowSideNav,
+  setNoShow,
+  setShowNotification,
+} = infoSlice.actions;

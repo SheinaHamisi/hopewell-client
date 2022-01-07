@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { PencilIcon, CalendarIcon } from "@heroicons/react/outline";
+import {
+  VideoCameraIcon,
+  CalendarIcon,
+  UsersIcon,
+  LocationMarkerIcon,
+} from "@heroicons/react/outline";
 import { MenuAlt3Icon, ChartPieIcon, UserIcon } from "@heroicons/react/solid";
 import { setShowSideNav } from "../../../features/Slice/info/info.slice";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
@@ -39,10 +44,19 @@ function SideNav() {
               Icon={CalendarIcon}
             />
             <SideNavLink
-              name="Create Meeting"
-              link="dashboard"
-              Icon={PencilIcon}
+              name="Join Meeting"
+              link="join-meeting"
+              Icon={VideoCameraIcon}
             />
+
+            <SectionName name="Admin" />
+            <SideNavLink name="users" link="User-list" Icon={UsersIcon} />
+            <SideNavLink
+              name="location"
+              link="location-setup"
+              Icon={LocationMarkerIcon}
+            />
+
             <SectionName name="Settings" />
             <SideNavLink name="Account" link="account" Icon={UserIcon} />
           </div>
@@ -68,20 +82,22 @@ const SideNavLink = ({ name, link, Icon }) => {
   }, [location]);
 
   return (
-    <NavLink
-      to={`${base}`}
-      className={`flex ${
-        active ? "text-indigo-700 bg-indigo-100   " : "text-gray-400 "
-      }  transition ease-in-out -mt-1 font-serif font-extralight 
+    <div>
+      <NavLink
+        to={`${base}`}
+        className={`flex ${
+          active ? "text-indigo-700 bg-indigo-100   " : "text-gray-400 "
+        }  transition ease-in-out -mt-1 font-serif font-extralight 
       duration-300 bg-transparent w-full items-center px-3 py-2 hover:bg-indigo-100 
        hover:text-indigo-700  cursor-pointer rounded-full`}
-    >
-      <Icon className={`h-5 fill-current  ${active && "animate-pulse"} `} />
-      <span className="ml-2 text-sm">{name}</span>
-    </NavLink>
+      >
+        <Icon className={`h-5  ${active && "animate-pulse"} `} />
+        <span className="ml-2 text-sm">{name}</span>
+      </NavLink>
+    </div>
   );
 };
 
 const SectionName = ({ name }) => {
-  return <h3 className="text-gray-400 text-sm  uppercase">{name}</h3>;
+  return <h3 className="text-gray-400 text-sm mb-2 uppercase">{name}</h3>;
 };

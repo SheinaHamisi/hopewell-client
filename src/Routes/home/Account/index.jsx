@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Input from "../components/Input";
 
 function Index() {
+  const { user } = useSelector((state) => state.users);
   return (
     <div className="  my-3 w-full h-auto">
       <div className=" bg-white ">
@@ -24,13 +26,13 @@ function Index() {
             <p className="font-bold text-xl text-gray-900">
               Name:{" "}
               <span className="font-normal text-gray-600 text-md">
-                Lincoln Kantet
+                {user?.name}
               </span>
             </p>
             <p className="font-bold text-xl text-gray-900">
               Email:{" "}
               <span className="font-normal text-gray-600 text-md">
-                Lincoln.kantet@gmail.com
+                {user?.email}
               </span>
             </p>
           </div>
@@ -38,12 +40,7 @@ function Index() {
             <h2 className="text-start md:text-center text-2xl font-bold text-gray-900">
               Bio
             </h2>
-            <p className="px-3 py-4 bg-gray-200 text-gray-600">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Similique consequatur ducimus dicta voluptate praesentium quod
-              adipisci iste iusto qui iure obcaecati est laborum architecto,
-              dolore fugiat harum fugit placeat nostrum.
-            </p>
+            <p className="px-3 py-4 bg-gray-200 text-gray-600">{user?.bio}</p>
           </div>
         </section>
       </div>

@@ -5,12 +5,12 @@ function Header() {
   <div>
     <img
       src="logo.png"
-      className="w-16 md:w-28 lg:w-36 md:ml-8 lg:ml-20"
+      className="w-16 md:w-28 lg:w-36 md:ml-16 lg:ml-20 xl:ml-48"
       alt=""
     />
   </div>
 
-  <div className="flex items-center md:space-x-8 md:mr-12 lg:text-xl text-xs">
+  <div className="flex items-center xl:space-x-12 md:space-x-8 md:mr-12 lg:text-xl text-xs">
     <p>HOME</p>
     <p>HOW IT WORKS</p>
     <p>FAQS</p>

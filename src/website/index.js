@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import Home from "./Home";
 function Index() {
   return (
-    <>
+    <div className="overflow-hidden w-screen">
       <Header />
       <Routes>
         <Route path="" element={<Home />} />
@@ -14,7 +14,7 @@ function Index() {
         <Route path="contact" element={<About />} />
       </Routes>
       <Footer />
-    </>
+    </div>
   );
 }
 

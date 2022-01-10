@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 
 function Section1() {
   return (
-    <section className="sectionone xl:px-28">
+    <section className="sectionone xl:px-4">
       <div className="contentone flex flex-col-reverse lg:flex-row">
-        <div className="pl-12 md:pl-24 md:pt-12 lg:w-full xl:w-6/12 xl:pt-10">
+        <div className="pl-4 md:pl-24 md:pt-12 lg:w-8/12 xl:w-full xl:mr-12 xl:pt-28">
           <div className="text-4xl md:text-6xl font-bold leading-snug">
             <p className=" text-red-600">Mental</p>
             <p className=" text-blue-600">Well-Being</p>
@@ -31,10 +31,10 @@ function Section1() {
             </button>
           </div>
         </div>
-        <div className="seconeimage md:px-28 lg:p-0">
+        <div className="seconeimage px-2 md:px-12 lg:px-0 xl:pr-8 xl:w-full">
           <img
-            src="Group 4.png "
-            className="md:h-96 md:min-w-full lg:h-full"
+            src="hero11.jpeg "
+            className="md:min-w-full lg:h-full"
             alt=""
           />
         </div>

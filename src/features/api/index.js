@@ -1,11 +1,7 @@
 import axios from "axios";
 import decode from "jwt-decode";
 
-<<<<<<< HEAD
-export const Server_URL = "https://hopewell-firm.herokuapp.com"; // ""; // "http://localhost:5000";
-=======
-export const Server_URL = "http://localhost:5000"; //"https://hopewell-firm.herokuapp.com"; //  "http://localhost:5000";
->>>>>>> e2ff4c88d1d083e906f6a7c75d4f5b9c3d45bee3
+export const Server_URL = "https://hopewell-firm.herokuapp.com"; //"https://hopewell-firm.herokuapp.com"; //  "http://localhost:5000";
 const API_URL = `${Server_URL}/api`;
 
 export const API = axios.create({

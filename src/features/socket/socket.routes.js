@@ -25,6 +25,7 @@ export const connectWithSocketAuthServer = () => {
     // new member has joined
     authSocket.on("new-member", (data) => {
       // update store
+      console.log("data");
       store.dispatch(addMembers(data));
     });
 
@@ -37,8 +38,6 @@ export const connectWithSocketAuthServer = () => {
       console.log(data);
       store.dispatch(setMessages(data));
     });
-
-    
   });
 };
 

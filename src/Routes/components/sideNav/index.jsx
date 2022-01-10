@@ -6,6 +6,7 @@ import {
   CalendarIcon,
   UsersIcon,
   LocationMarkerIcon,
+  TableIcon,
 } from "@heroicons/react/outline";
 import { MenuAlt3Icon, ChartPieIcon, UserIcon } from "@heroicons/react/solid";
 import { setShowSideNav } from "../../../features/Slice/info/info.slice";
@@ -48,7 +49,7 @@ function SideNav() {
               link="join-meeting"
               Icon={VideoCameraIcon}
             />
-
+            {/* admin start */}
             <SectionName name="Admin" />
             <SideNavLink name="users" link="User-list" Icon={UsersIcon} />
             <SideNavLink
@@ -56,7 +57,13 @@ function SideNav() {
               link="location-setup"
               Icon={LocationMarkerIcon}
             />
+            <SideNavLink
+              name="Service Type"
+              link="Service-type"
+              Icon={TableIcon}
+            />
 
+            {/* admin end */}
             <SectionName name="Settings" />
             <SideNavLink name="Account" link="account" Icon={UserIcon} />
           </div>

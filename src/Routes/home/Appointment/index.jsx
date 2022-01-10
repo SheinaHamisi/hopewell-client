@@ -7,17 +7,6 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
 function Appointment() {
-  const info = useSelector((state) => state.info);
-
-  const { loading, message, success, error } = info;
-
-  useEffect(() => {
-    if (error && !success) {
-      toast.error(error);
-    } else if (message) {
-      toast.success(message);
-    }
-  }, [message, error, success]);
   return (
     <div className="">
       <Routes>

@@ -27,7 +27,7 @@ function Nav() {
           </div> */}
         </div>
         <div className="flex items-center ">
-          <p className="mr-4 text-xs text-gray-500">
+          <p className="mr-4 text-md font-thin text-gray-500">
             Hi, {user?.name.split(" ")[0]}
           </p>
           <div

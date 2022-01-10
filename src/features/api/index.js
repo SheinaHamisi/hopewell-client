@@ -1,11 +1,7 @@
 import axios from "axios";
 import decode from "jwt-decode";
 
-<<<<<<< HEAD
-export const Server_URL = "https://hopewell-firm.herokuapp.com"; // ""; // "http://localhost:5000";
-=======
-export const Server_URL = "http://localhost:5000"; //"https://hopewell-firm.herokuapp.com"; //  "http://localhost:5000";
->>>>>>> e2ff4c88d1d083e906f6a7c75d4f5b9c3d45bee3
+export const Server_URL = "http://localhost:5000"; // "https://hopewell-firm.herokuapp.com"; // ""; // "http://localhost:5000";
 const API_URL = `${Server_URL}/api`;
 
 export const API = axios.create({
@@ -35,7 +31,7 @@ API.interceptors.request.use(async (req) => {
   return req;
 });
 //===================================================================== interceptors
-
+// users Api
 export const createUserApi = (data) => API.post("/auth/register", data);
 export const loginUserApi = (data) => API.post("/auth/login", data);
 export const activateUserApi = (data) => API.post("/auth/activate", data);
@@ -44,5 +40,17 @@ export const forgotPasswordApi = (data) => API.post("/auth/requestReset", data);
 export const updatePasswordApi = (data) =>
   API.post("/auth/resetPassword", data);
 
-// services api
+// lockPrice api
 export const getServiceTypesApi = (data) => API.get("/locPrice/all", data);
+export const createLockPriceApi = (data) => API.post("/locPrice/create", data);
+export const getOneLockPriceApi = (id) => API.get(`/locPrice/one/${id}`);
+export const updateLockPriceApi = (data) =>
+  API.patch(`/locPrice/update/${data?._id}`, data);
+export const deleteLocPriceAPI = (id) => API.delete(`/locPrice/delete/${id}`);
+
+// servicer API
+export const getAllServicesApi = (data) => API.get("/service/all", data);
+export const createServiceApi = (data) => API.post("/service/create", data);
+export const getOneServiceApi = (id) => API.get(`/service/one/${id}`);
+export const updateServiceApi = (data) =>
+  API.patch(`/service/update/${data?._id}`, data);

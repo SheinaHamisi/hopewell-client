@@ -28,7 +28,6 @@ export const loginUser = createAsyncThunk(
     thunkAPI.dispatch(clearMessages());
     try {
       const response = await api.loginUserApi(formData);
-
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data.results;
     } catch (err) {
@@ -96,6 +95,9 @@ export const updatePassword = createAsyncThunk(
     thunkAPI.dispatch(clearMessages());
     try {
       const response = await api.updatePasswordApi(formData);
+
+      //  
+
       thunkAPI.dispatch(setMessage(response.data.message));
     } catch (err) {
       thunkAPI.dispatch(

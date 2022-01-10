@@ -1,15 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Account from "./Account";
 import Dashboard from "./dashboard";
 import { setNoShow } from "../../features/Slice/info/info.slice";
 import JoinMeeting from "./JoinMeeting";
 import Apointment from "./Appointment";
-import { USERSLIST, CREATELOCKPRICE } from "./AdminPages";
+import {
+  USERSLIST,
+  CREATELOCKPRICE,
+  LockPriceList,
+  ServiceList,
+  CREATESRVICE,
+} from "./AdminPages";
+import { toast } from "react-toastify";
 
 function Main() {
   const dispatch = useDispatch();
+  const info = useSelector((state) => state.info);
+
+  const { loading, message, success, error } = info;
+
+  useEffect(() => {
+    if (error && !success) {
+      toast.error(error);
+    } else if (message) {
+      toast.success(message);
+    }
+  }, [message, error, success]);
   return (
     <section
       onClick={() => dispatch(setNoShow())}
@@ -20,9 +38,13 @@ function Main() {
         <Route path="/account" element={<Account />} />
         <Route path="/join-meeting" element={<JoinMeeting />} />
         <Route path="/apointment" element={<Apointment />} />
+
         {/*  only admin */}
         <Route path="/User-list" element={<USERSLIST />} />
-        <Route path="/location-setup" element={<CREATELOCKPRICE />} />
+        <Route path="/location-setup" element={<LockPriceList />} />
+        <Route path="/location-setup/:id" element={<CREATELOCKPRICE />} />
+        <Route path="/Service-type" element={<ServiceList />} />
+        <Route path="/Service-type/:id" element={<CREATESRVICE />} />
       </Routes>
     </section>
   );

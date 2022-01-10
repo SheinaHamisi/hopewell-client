@@ -2,7 +2,8 @@ import CheckOut from "./../CheckOut";
 import { Fragment, useState, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
-import { toast } from "react-toastify";
+import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
+
 import { ArrowCircleRightIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllServices } from "../../../../features/Slice/apointment/apointment.async";
@@ -55,6 +56,12 @@ export default function Example() {
           </div>
         )}
 
+        <div>
+          <div className="col-span-1 mt-8">
+            <p className="mb-3"> Apointment Date </p>
+            <DateTimePickerComponent></DateTimePickerComponent>
+          </div>
+        </div>
         <div className="w-full mt-6 py-4 flex justify-end">
           <button
             type="submit"

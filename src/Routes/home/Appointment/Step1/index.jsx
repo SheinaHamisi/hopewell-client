@@ -59,7 +59,15 @@ export default function Example() {
         <div>
           <div className="col-span-1 mt-8">
             <p className="mb-3"> Apointment Date </p>
-            <DateTimePickerComponent></DateTimePickerComponent>
+            <DateTimePickerComponent
+              id="datetimepicker"
+              placeholder="please select the Date and Time"
+              strictMode={true}
+              // min={new Date()}
+              required
+              // value={date}
+              // onChange={(e) => setDate(e.target.value)}
+            />
           </div>
         </div>
         <div className="w-full mt-6 py-4 flex justify-end">

@@ -3,17 +3,18 @@ import { Fragment, useState, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
-
 import { ArrowCircleRightIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllServices } from "../../../../features/Slice/apointment/apointment.async";
 import Div from "../../components/Div";
+import { toast } from "react-toastify";
 
 export default function Example() {
   const appointment = useSelector((state) => state.appointment);
   const [locationList, setLocationList] = useState();
   const [service, setService] = useState();
   const [location, setLocation] = useState();
+  const [date, setDate] = useState();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,6 +27,19 @@ export default function Example() {
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!service || !location || !date) {
+      return toast.error(
+        `Please select ${
+          !service
+            ? "Service type"
+            : !location
+            ? "Service Location"
+            : !date
+            ? "Date"
+            : "err"
+        }`
+      );
+    }
   };
   return (
     <Div>
@@ -56,17 +70,24 @@ export default function Example() {
           </div>
         )}
 
-        <div>
+        <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="col-span-1 mt-8">
             <p className="mb-3"> Apointment Date </p>
             <DateTimePickerComponent
               id="datetimepicker"
               placeholder="please select the Date and Time"
               strictMode={true}
-              // min={new Date()}
+              min={
+                new Date(
+                  new Date().getFullYear(),
+                  new Date().getMonth(),
+                  new Date().getDate() + 2
+                )
+              }
               required
-              // value={date}
-              // onChange={(e) => setDate(e.target.value)}
+              strictMode={true}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
             />
           </div>
         </div>

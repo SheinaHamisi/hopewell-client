@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Input from "../components/Input";
 
 function Index() {
   const { user } = useSelector((state) => state.users);
+  const [formData, setFormData] = useState(user);
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  console.log(formData);
   return (
     <div className="  my-3 w-full h-auto">
       <div className=" bg-white ">
@@ -26,13 +32,18 @@ function Index() {
             <p className="font-bold text-xl text-gray-900">
               Name:{" "}
               <span className="font-normal text-gray-600 text-md">
-                {user?.name}
+                {formData?.FirstName
+                  ? formData?.FirstName
+                  : formData?.name?.split(" ")[0]}{" "}
+                {formData?.lastName
+                  ? formData?.lastName
+                  : formData?.name?.split(" ")[1]}{" "}
               </span>
             </p>
             <p className="font-bold text-xl text-gray-900">
               Email:{" "}
               <span className="font-normal text-gray-600 text-md">
-                {user?.email}
+                {formData?.email}
               </span>
             </p>
           </div>
@@ -40,7 +51,9 @@ function Index() {
             <h2 className="text-start md:text-center text-2xl font-bold text-gray-900">
               Bio
             </h2>
-            <p className="px-3 py-4 bg-gray-200 text-gray-600">{user?.bio}</p>
+            <p className="px-3 py-4 bg-gray-200 text-gray-600">
+              {formData?.bio}
+            </p>
           </div>
         </section>
       </div>
@@ -49,10 +62,34 @@ function Index() {
         <div className="w-full grid grid-cols-1 md:grid-cols-2 md:gap-x-4">
           <form className="px-3 md:px-5 bg-white mt-4 py-8 col-span-1">
             <h2 className="text-3xl text-center">User Info</h2>
-            <Input label="First Name" />
-            <Input label="Last Name" />
-            <Input label="Email" />
-            <Input label="Phone" />
+            <Input
+              label="First Name"
+              val={formData?.name?.split(" ")[0]}
+              placeholder="First Name"
+              name="FirstName"
+              change={changeHandler}
+            />
+            <Input
+              label="Last Name"
+              val={formData?.name?.split(" ")[1]}
+              placeholder="Last Name"
+              name="lastName"
+              change={changeHandler}
+            />
+            <Input
+              change={changeHandler}
+              label="Email"
+              val={formData?.email}
+              placeholder="Email"
+              name="email"
+            />
+            <Input
+              label="Phone"
+              val={formData?.phone}
+              placeholder="Phone"
+              name="phone"
+              change={changeHandler}
+            />
             <div className="w-full flex justify-end py-7 px-5 ">
               <button
                 type="Submit"
@@ -64,9 +101,30 @@ function Index() {
           </form>
           <form className="px-3  md:px-5  bg-white mt-4 py-8 col-span-1">
             <h2 className="text-3xl text-center">Security Info</h2>
-            <Input label="Old password" />
-            <Input label="New Password" />
-            <Input label="Confirm Password" />
+            <Input
+              label="Old password"
+              name="oldPassword"
+              type="password"
+              pass
+              placeholder="Old password"
+              change={changeHandler}
+            />
+            <Input
+              label="New Password"
+              name="password"
+              pass
+              placeholder="New password"
+              type="password"
+              change={changeHandler}
+            />
+            <Input
+              label="Confirm Password"
+              name="confirmPassword"
+              pass
+              placeholder="Confirm password"
+              change={changeHandler}
+              type="password"
+            />
             <div className="w-full flex justify-end py-7 px-5 mt-24 ">
               <button
                 type="Submit"
@@ -82,6 +140,9 @@ function Index() {
           <section className="  grid grid-cols-1 md:grid-cols-2 gap-x-4 ">
             <div className="col-span-1">
               <textarea
+                onChange={(e) =>
+                  setFormData({ ...formData, bio: e.target.value })
+                }
                 className="px-2 py-4  w-full md:h-full   focus:outline-indigo-700  focus:border-indigo-400 focus:bg-white mt-2 bg-gray-50 border border-indigo-300"
                 placeholder="Bio"
               ></textarea>

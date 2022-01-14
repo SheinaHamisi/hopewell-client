@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Website from "./website";
 import Login from "./Routes/Auth/Login";
@@ -41,7 +42,7 @@ function App() {
           {/* Authenticaion needed */}
           <Route element={<Authenticated />}>
             <Route path="/dashboard/*" element={<Dashboard />} />
-            <Route path="/meeting/:meetingID" element={<Meeting />} />{" "}
+            <Route path="/meeting/:meetingID" element={<Meeting />} />
           </Route>
 
           <Route path="*" element={<CallEnded />} />

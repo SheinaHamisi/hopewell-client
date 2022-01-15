@@ -9,7 +9,15 @@ function Index() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  console.log(formData);
+
+  const updateUserInfo = (e) => {
+    e.preventDefault();
+
+    const { FirstName, lastName, email, phone } = formData;
+    formData.name = FirstName + " " + lastName;
+    console.log(formData);
+  };
+
   return (
     <div className="  my-3 w-full h-auto">
       <div className=" bg-white ">
@@ -60,7 +68,10 @@ function Index() {
 
       <main className="pb-8 ">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 md:gap-x-4">
-          <form className="px-3 md:px-5 bg-white mt-4 py-8 col-span-1">
+          <form
+            onChange={updateUserInfo}
+            className="px-3 md:px-5 bg-white mt-4 py-8 col-span-1"
+          >
             <h2 className="text-3xl text-center">User Info</h2>
             <Input
               label="First Name"

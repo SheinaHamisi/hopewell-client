@@ -1,7 +1,8 @@
 import React from "react";
+import Div from "../../components/Div";
 
 function index() {
-  return <div>step 2</div>;
+  return <Div>lll lorem4000</Div>;
 }
 
 export default index;

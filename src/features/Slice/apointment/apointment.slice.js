@@ -10,11 +10,23 @@ import {
   updateLockPrice,
 } from "./apointment.async";
 
-const initialState = {};
+const initialState = {
+  newMeeting: localStorage.getItem("newMeeting")
+    ? JSON.parse(localStorage.getItem("newMeeting"))
+    : null,
+};
 
 const apointmentSlice = createSlice({
   name: "apointment",
   initialState,
+  reducers: {
+    saveNewMeeting(state, action) {
+      const data = { ...state.newMeeting, ...action.payload };
+      localStorage.setItem("newMeeting", JSON.stringify(data));
+      console.log(data);
+      state.newMeeting = data;
+    },
+  },
   extraReducers: {
     [getlockPrice.pending]: (state, action) => {
       state.lockPrice = null;
@@ -68,3 +80,4 @@ const apointmentSlice = createSlice({
 });
 
 export default apointmentSlice.reducer;
+export const { saveNewMeeting } = apointmentSlice.actions;

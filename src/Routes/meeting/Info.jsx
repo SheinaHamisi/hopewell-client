@@ -35,6 +35,7 @@ function Info() {
 
   // collect messages
   useEffect(() => {
+ 
     getAllMessages({ meetingID });
   }, []);
 
@@ -55,6 +56,7 @@ function Info() {
     };
 
     sendMessage(data, dispatch);
+
     setText("");
   };
 

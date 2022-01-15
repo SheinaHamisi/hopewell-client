@@ -19,25 +19,27 @@ export const authSocket = io(`${Server_URL}/socket`, {
     accessToken: accessToken,
   },
 });
+
+authSocket.once("all-messages", (data) => {
+  console.log("all-messages");
+  console.log(data);
+  store.dispatch(setMessages(data));
+});
+
+// new message
+authSocket.on("new-message", (data) => {
+  store.dispatch(addMessage(data));
+});
+
+authSocket.on("new-member", (data) => {
+  // update store
+  console.log("data");
+  store.dispatch(addMembers(data));
+});
 export const connectWithSocketAuthServer = () => {
   // initiate connection
   authSocket.on("connect", () => {
     // new member has joined
-    authSocket.on("new-member", (data) => {
-      // update store
-      console.log("data");
-      store.dispatch(addMembers(data));
-    });
-
-    // new message
-    authSocket.on("new-message", (data) => {
-      store.dispatch(addMessage(data));
-    });
-    // get message
-    authSocket.on("All-messages", (data) => {
-      console.log(data);
-      store.dispatch(setMessages(data));
-    });
   });
 };
 

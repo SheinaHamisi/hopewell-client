@@ -11,8 +11,8 @@ function Appointment() {
     <div className="">
       <Routes>
         <Route path="" element={<Step1 />}></Route>
-        {/* <Route path="/Step2" element={<Step2 />}></Route>
-        <Route path="/Step3" element={<Step3 />}></Route>
+        <Route path="one" element={<Step2 />}></Route>
+        {/* <Route path="/Step3" element={<Step3 />}></Route>
         <Route path="/Step4" element={<Step4 />}></Route> */}
       </Routes>
     </div>

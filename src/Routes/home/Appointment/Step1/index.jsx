@@ -8,13 +8,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllServices } from "../../../../features/Slice/apointment/apointment.async";
 import Div from "../../components/Div";
 import { toast } from "react-toastify";
+import { saveNewMeeting } from "../../../../features/Slice/apointment/apointment.slice";
+import { useNavigate } from "react-router-dom";
 
 export default function Example() {
+  const navigate = useNavigate();
   const appointment = useSelector((state) => state.appointment);
+
   const [locationList, setLocationList] = useState();
-  const [service, setService] = useState();
-  const [location, setLocation] = useState();
-  const [date, setDate] = useState();
+  const [service, setService] = useState(appointment?.newMeeting?.service);
+  const [location, setLocation] = useState(appointment?.newMeeting?.location);
+  const [date, setDate] = useState(appointment?.newMeeting?.date);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,6 +44,11 @@ export default function Example() {
         }`
       );
     }
+    const data = { service, location, StartTime: date };
+
+    // dispatch to save meeting info to local storage and store
+    dispatch(saveNewMeeting(data));
+    return navigate("/dashboard/apointment/one");
   };
   return (
     <Div>
@@ -57,6 +66,7 @@ export default function Example() {
                 data={appointment?.services}
                 text="Please select Service"
                 setSelected={setService}
+                clear={setLocation}
               />
             </div>
             <div className="col-span-1 ">
@@ -75,7 +85,7 @@ export default function Example() {
             <p className="mb-3"> Apointment Date </p>
             <DateTimePickerComponent
               id="datetimepicker"
-              placeholder="please select the Date and Time"
+              placeholder={`please select the Date and Time`}
               strictMode={true}
               min={
                 new Date(
@@ -104,9 +114,19 @@ export default function Example() {
   );
 }
 
-const Selector = ({ selected, setSelected, data, text }) => {
+const Selector = ({ selected, setSelected, data, text, clear }) => {
+  const clearBefore = () => {
+    if (!clear) return;
+    clear("");
+  };
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox
+      value={selected}
+      onChange={(e) => {
+        clearBefore();
+        setSelected(e);
+      }}
+    >
       <div className="relative mt-1">
         <p className="text-gray-900 text-lg mb-3"> {text}</p>
         <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-gray-100 rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">

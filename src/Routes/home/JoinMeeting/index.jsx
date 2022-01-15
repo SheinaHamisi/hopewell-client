@@ -5,9 +5,15 @@ import { KeyIcon } from "@heroicons/react/solid";
 function Index() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
+    /**
+     * TODO remrmber to verify meeting id before
+     */
+
+    navigate(`/meeting/${formData?.meetingID}`);
   };
 
   return (

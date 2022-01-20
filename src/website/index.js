@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import Home from "./Home";
 function Index() {
   return (
-    <div className="overflow-hidden w-screen">
+    <div className="mx-2 mt-4">
       <Header />
       <Routes>
         <Route path="" element={<Home />} />

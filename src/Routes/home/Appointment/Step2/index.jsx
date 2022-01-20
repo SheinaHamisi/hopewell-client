@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Div from "../../components/Div";
+import CheckOut from "../CheckOut";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTherapists } from "../../../../features/Slice/apointment/apointment.async";
+function Step2() {
+  // get all therapists and admin
+  const dispatch = useDispatch();
 
-function index() {
-  return <Div>lll lorem4000</Div>;
+  useEffect(() => {
+    dispatch(getAllTherapists());
+  }, []);
+  return (
+    <Div>
+      <CheckOut step2 />
+      <div></div>
+    </Div>
+  );
 }
 
-export default index;
+export default Step2;

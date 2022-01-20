@@ -37,7 +37,7 @@ function Main() {
         <Route path="" element={<Dashboard />} />
         <Route path="/account" element={<Account />} />
         <Route path="/join-meeting" element={<JoinMeeting />} />
-        <Route path="/apointment" element={<Apointment />} />
+        <Route path="/apointment/*" element={<Apointment />} />
 
         {/*  only admin */}
         <Route path="/User-list" element={<USERSLIST />} />

@@ -1,7 +1,7 @@
 import axios from "axios";
 import decode from "jwt-decode";
 
-export const Server_URL = "https://hopewell-firm.herokuapp.com"; //  "http://localhost:5000";
+export const Server_URL = "http://localhost:5000"; // "https://hopewell-firm.herokuapp.com"; //  ;
 const API_URL = `${Server_URL}/api`;
 
 export const API = axios.create({
@@ -54,3 +54,6 @@ export const createServiceApi = (data) => API.post("/service/create", data);
 export const getOneServiceApi = (id) => API.get(`/service/one/${id}`);
 export const updateServiceApi = (data) =>
   API.patch(`/service/update/${data?._id}`, data);
+
+// appointment
+export const getAllTherapistsApi = (data) => API.get("/auth/therapists");

@@ -178,3 +178,20 @@ export const updateService = createAsyncThunk(
     }
   }
 );
+
+export const getAllTherapists = createAsyncThunk(
+  "apointment/getAllTherapists",
+  async (formData, thunkAPI) => {
+    thunkAPI.dispatch(clearMessages());
+    try {
+      const response = await api.getAllTherapistsApi();
+      console.log(response);
+    } catch (err) {
+      console.log({ err });
+      thunkAPI.dispatch(
+        setError(err.response.data ? err.response.data.message : err.message)
+      );
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);

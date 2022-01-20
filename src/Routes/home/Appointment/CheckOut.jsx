@@ -2,14 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 function CheckOut({ step1, step2, step3, step4, step5 }) {
-  let appointment;
-
+  const appointment = useSelector((state) => state.appointment);
+  console.log(appointment);
   return (
     <nav class="bg-grey-light  rounded font-sans w-full py-3 border-b mb-5">
       <ol class="list-reset flex text-grey-dark">
         <li>
           <Link
-            to="/Home/book-Appointment"
+            to="/dashboard/apointment"
             class={`${step1 ? "text-primary" : "text-gray-900"} font-bold`}
           >
             Service
@@ -20,9 +20,9 @@ function CheckOut({ step1, step2, step3, step4, step5 }) {
         </li>
         <li>
           <Link
-            to="/Home/book-Appointment/Step2"
+            to="/dashboard/apointment/one"
             class={`${
-              !appointment?.service
+              !appointment?.newMeeting?.service
                 ? "text-gray-400 "
                 : step2
                 ? "text-primary"
@@ -37,7 +37,7 @@ function CheckOut({ step1, step2, step3, step4, step5 }) {
         </li>
         <li>
           <Link
-            to="/Home/book-Appointment/Step3"
+            to="/dashboard/apointment/Step3"
             class={`${
               !appointment?.host
                 ? "text-gray-400"
@@ -54,7 +54,7 @@ function CheckOut({ step1, step2, step3, step4, step5 }) {
         </li>
         <li>
           <Link
-            to="/Home/book-Appointment/Step4"
+            to="/dashboard/apointment/Step4"
             class={`${
               !appointment?.initiatePayment
                 ? "text-gray-400"

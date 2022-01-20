@@ -4,40 +4,33 @@ import { toast } from "react-toastify";
 
 function Section1() {
   return (
-    <section className="sectionone xl:px-4">
-      <div className="contentone flex flex-col-reverse lg:flex-row">
-        <div className="pl-4 md:pl-24 md:pt-12 lg:w-8/12 xl:w-full xl:mr-12 xl:pt-28">
-          <div className="text-4xl md:text-6xl font-bold leading-snug">
-            <p className=" text-red-600">Mental</p>
-            <p className=" text-blue-600">Well-Being</p>
-            <p className=" text-blue-600">for Africa</p>
-          </div>
-          <p className=" text-blue-900 mt-6 leading-10 md:text-xl text-l">
-            Our vision is to change the African narrative by having a continent
-            whose men and women are mentally healthy.
-          </p>
-          <div className="seconebtn mt-8 lg:mt-16 xl:mt-24"> 
-            <button
-              className="bg-primary transition ease-in-out duration-500 hover:bg-white  font-semibold hover:text-primary
-      px-7 md:px-18 md:text-xl rounded-3xl py-3 text-white mr-4"
-            >
-              App here
-            </button>
-            <button
-              className="bg-white transition ease-in-out duration-500 hover:bg-primary  font-semibold hover:text-white 
-        px-7 md:px-18 md:text-xl rounded-3xl py-3 text-blue-600"
-            >
-              Play Video
-            </button>
-          </div>
-        </div>
-        <div className="seconeimage px-2 md:px-12 lg:px-0 xl:pr-8 xl:w-full">
-          <img
-            src="hero11.jpeg "
-            className="md:min-w-full lg:h-full"
-            alt=""
-          />
-        </div>
+    <section className=" h-auto w-full mt-10">
+      <h1 className="text-center text-4xl md:text-5xl md:font-bold md:mb-6 px-2 font-semibold">
+        Mental Well-Being for Africa
+      </h1>
+      <p className="px-3 text-gray-500 md:mb-6 text-lg md:text-xl my-4 text-center">
+        Our vision is to change the African narrative by having a continent
+        whose men and women are mentally healthy.
+      </p>
+      <div className="flex flex-col px-4 mb-4 md:flex-row  md:justify-center ">
+        <button className="shadow-md px-8 py-3 font-semibold bg-primary text-white">
+          Join us Today
+        </button>
+        <button className="shadow-md md:ml-8 font-semibold  bg-gray-900 mt-4 md:mt-0 text-white px-8 py-3">
+          Learn More
+        </button>
+      </div>
+
+      <div className="my-8 w-full flex justify-center items-center">
+        <iframe
+          width="800"
+          height="415"
+          src="https://www.youtube.com/embed/Q3-jRn0tJwY"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
       </div>
     </section>
   );
